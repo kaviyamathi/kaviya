@@ -1,0 +1,70 @@
+#supermarket dress inventory
+def display_menu():
+    print("\nSupermarket Dress Inventory Management")
+    print("1. Add Dress")
+    print("2. Update Dress")
+    print("3. View All Dresses")
+    print("4. Exit")
+
+def add_dress(inventory):
+    dress_id = input("Enter Dress ID: ")
+    if dress_id in inventory:
+        print("Dress ID already exists. Use update option to modify existing dress.")
+    else:
+        name = input("Enter Dress Name: ")
+        size = input("Enter Dress Size: ")
+        price = float(input("Enter Dress Price: "))
+        quantity = int(input("Enter Dress Quantity: "))
+        inventory[dress_id] = {'name': name, 'size': size, 'price': price, 'quantity': quantity}
+        print("Dress added successfully.")
+
+def update_dress(inventory):
+    dress_id = input("Enter Dress ID to update: ")
+    if dress_id not in inventory:
+        print("Dress ID not found.")
+    else:
+        print(f"Current Details: {inventory[dress_id]}")
+        name = input("Enter New Dress Name (leave blank to keep current): ")
+        size = input("Enter New Dress Size (leave blank to keep current): ")
+        price = input("Enter New Dress Price (leave blank to keep current): ")
+        quantity = input("Enter New Dress Quantity (leave blank to keep current): ")
+
+        if name:
+            inventory[dress_id]['name'] = name
+        if size:
+            inventory[dress_id]['size'] = size
+        if price:
+            inventory[dress_id]['price'] = float(price)
+        if quantity:
+            inventory[dress_id]['quantity'] = int(quantity)
+        
+        print("Dress updated successfully.")
+
+def view_dresses(inventory):
+    if not inventory:
+        print("No dresses in inventory.")
+    else:
+        for dress_id, details in inventory.items():
+            print(f"\nDress ID: {dress_id}")
+            for key, value in details.items():
+                print(f"{key.capitalize()}: {value}")
+
+def main():
+    inventory = {}
+    while True:
+        display_menu()
+        choice = input("Enter your choice: ")
+        if choice == '1':
+            add_dress(inventory)
+        elif choice == '2':
+            update_dress(inventory)
+        elif choice == '3':
+            view_dresses(inventory)
+        elif choice == '4':
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
